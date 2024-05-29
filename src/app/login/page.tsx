@@ -8,7 +8,6 @@ import Link from "next/link";
 
 interface User {
   username: string;
-  email: string;
   password: string;
 }
 
@@ -17,45 +16,34 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User>({
     username: "",
-    email: "",
     password: "",
   });
 
-  async function onSignup() {
+  async function onLogin() {
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/signup", user);
-      console.log("Signup success!", response.data);
-      toast.success("User created succesfully!");
-      router.push("/login");
+      const response = await axios.post("/api/users/login", user);
+      console.log("Login went successfully!", response.data);
+      toast.success("Logged in!");
+      router.push("/profile");
     } catch (error: any) {
-      console.log("An error occured: " + error);
-      toast.error(error.message);
-    } finally {
-      setLoading(false);
+      console.log("Something went wrong: ", error);
     }
   }
 
   return (
     <main>
       <div>
-        <h1>{loading ? "Processing..." : "Sign-Up Page"}</h1>
+        <h1>{loading ? "Processing..." : "Login Page"}</h1>
         <label htmlFor="username">Username: </label>
         <input
           type="text"
-          placeholder="email"
+          placeholder="username"
           value={user.username}
           onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
         <br />
-        <label htmlFor="email">E-mail: </label>
-        <input
-          type="text"
-          placeholder="email"
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-        />
-        <br />
+
         <label htmlFor="password">Password: </label>
         <input
           type="password"
@@ -63,12 +51,12 @@ export default function LoginPage() {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
         <br />
-        <input type="submit" value="Sign-in" onClick={onSignup} />
+        <input type="submit" value="Sign-in" onClick={onLogin} />
         <br />
         <span>
-          You want to log in?{" "}
-          <Link href="/login" className="text-blue-500">
-            Login here!
+          You want to Sign-in?{" "}
+          <Link href="/signup" className="text-blue-500">
+            Sign-in here!
           </Link>
         </span>
       </div>
