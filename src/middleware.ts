@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/profile", request.nextUrl));
   }
 
-  if (!isPublicPath && !token) {
+  if (!isPublicPath && !token && path != "/") {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
 }

@@ -32,30 +32,36 @@ export default function LoginPage() {
   }
 
   return (
-    <main>
+    <main className="w-full h-full flex justify-center items-center">
       <div>
-        <h1>{loading ? "Processing..." : "Login Page"}</h1>
-        <label htmlFor="username">Username: </label>
+        <h1 className="my-6 text-3xl">{loading ? "Processing..." : "Login"}</h1>
         <input
+          className="mb-4 w-full border-b py-2"
           type="text"
-          placeholder="username"
+          placeholder="Username"
           value={user.username}
           onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
         <br />
 
-        <label htmlFor="password">Password: </label>
         <input
+          className="mb-4 w-full border-b py-2"
           type="password"
+          placeholder="Password"
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
         <br />
-        <input type="submit" value="Sign-in" onClick={onLogin} />
+        <input
+          type="submit"
+          value="login"
+          onClick={onLogin}
+          className="w-full my-2 py-2 pt-1 bg-blue-400 hover:cursor-pointer hover:bg-blue-500 active:bg-blue-600 rounded-md text-white"
+        />
         <br />
         <span>
           You want to Sign-in?{" "}
-          <Link href="/signup" className="text-blue-500">
+          <Link href="/signup" className="text-blue-500 ">
             Sign-in here!
           </Link>
         </span>
