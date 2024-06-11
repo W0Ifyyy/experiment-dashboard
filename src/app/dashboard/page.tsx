@@ -16,7 +16,7 @@ export default function Dashboard() {
       setLogged(res.data.user);
     } catch (error: any) {
       console.error("Something went wrong: " + error);
-      toast.error("Failed to fetch users!");
+      toast.error("Unauthorized");
       router.push("/profile");
     }
   }
@@ -30,6 +30,20 @@ export default function Dashboard() {
       console.log("Something went wrong: " + error);
     }
   };
+
+  async function deleteUser(userID: string) {
+    try {
+      const response = await axios.delete("/api/users/deleteUser", {
+        data: { userID },
+      });
+      console.log("User deleted: ", response.data);
+      toast.success("User deleted!");
+      getUsers();
+    } catch (error: any) {
+      toast.error("An error occured: " + error);
+      console.error("An error occured: " + error);
+    }
+  }
 
   useEffect(() => {
     getUsers();
@@ -59,13 +73,21 @@ export default function Dashboard() {
                 <td className="border">{user.username}</td>
                 <td className="border">{user.email}</td>
                 <td className="border">{user.isAdmin ? "Yes" : "No"}</td>
+                <td>
+                  <button
+                    onClick={() => deleteUser(user._id)}
+                    className="bg-red-300 hover:bg-red-400 active:bg-red-500 p-2 rounded"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
       <button
-        className="my-2 p-2 bg-red-300 hover:bg-red-400 focus:bg-red-500 rounded text-white "
+        className="my-2 p-2 bg-blue-300 hover:bg-blue-400 active:bg-blue-500 rounded text-white "
         onClick={logout}
       >
         Logout
