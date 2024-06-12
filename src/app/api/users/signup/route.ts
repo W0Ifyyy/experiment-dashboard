@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
       username,
       email,
       password: hashedPassword,
+      isBanned: false,
     });
     const savedUser = await newUser.save();
     console.log(savedUser); //delete later

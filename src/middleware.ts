@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   const isPublicPath = path === "/login" || path === "/signup";
   const token = request.cookies.get("token")?.value || "";
   if (token && isPublicPath) {
-    return NextResponse.redirect(new URL("/profile", request.nextUrl));
+    return NextResponse.redirect(new URL("/post-room", request.nextUrl));
   }
   if (!isPublicPath && !token && path != "/") {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
@@ -14,7 +14,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/signup", "/profile/:path*", "/dashboard"],
+  matcher: [
+    "/",
+    "/login",
+    "/signup",
+    "/profile/:path*",
+    "/dashboard",
+    "/post-room",
+  ],
 };
 
 /*

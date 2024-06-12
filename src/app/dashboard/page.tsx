@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   async function getUsers() {
     try {
-      const res = await axios.get("/api/users/dashboard");
+      const res = await axios.get("/api/dashboard/displayUsers");
       setUsers(res.data.data);
       setLogged(res.data.user);
     } catch (error: any) {
@@ -45,6 +45,20 @@ export default function Dashboard() {
     }
   }
 
+  async function banUser(userID: string) {
+    try {
+      const response = await axios.delete("/api/users/banUser", {
+        data: { userID },
+      });
+      console.log("User banned: ", response.data);
+      toast.success("User banned!");
+      getUsers();
+    } catch (error: any) {
+      toast.error("An error occured: " + error);
+      console.error("An error occured: " + error);
+    }
+  }
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -64,6 +78,7 @@ export default function Dashboard() {
               <th className="border">Username</th>
               <th className="border">Email</th>
               <th className="border">Admin</th>
+              <th className="border">Banned</th>
             </tr>
           </thead>
           <tbody>
@@ -73,12 +88,21 @@ export default function Dashboard() {
                 <td className="border">{user.username}</td>
                 <td className="border">{user.email}</td>
                 <td className="border">{user.isAdmin ? "Yes" : "No"}</td>
+                <td className="border">{user.isBanned ? "Yes" : "No"}</td>
                 <td>
                   <button
                     onClick={() => deleteUser(user._id)}
                     className="bg-red-300 hover:bg-red-400 active:bg-red-500 p-2 rounded"
                   >
                     Delete
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => banUser(user._id)}
+                    className="bg-red-300 hover:bg-red-400 active:bg-red-500 p-2 rounded"
+                  >
+                    Ban
                   </button>
                 </td>
               </tr>

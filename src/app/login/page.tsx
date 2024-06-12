@@ -25,9 +25,19 @@ export default function LoginPage() {
       const response = await axios.post("/api/users/login", user);
       console.log("Login went successfully!", response.data);
       toast.success("Logged in!");
-      router.push("/profile");
+      router.push("/post-room");
     } catch (error: any) {
-      console.log("Something went wrong: ", error);
+      setLoading(false);
+      if (error.response && error.response.data && error.response.data.error) {
+        if (error.response.data.error === "User is banned!") {
+          toast.error("You're banned!");
+        } else {
+          toast.error(error.response.data.error);
+        }
+      } else {
+        console.log("Something went wrong: ", error.message);
+        toast.error("An unexpected error occurred!");
+      }
     }
   }
 

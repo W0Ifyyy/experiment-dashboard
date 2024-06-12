@@ -17,6 +17,12 @@ export async function POST(request: NextRequest) {
       throw new Error("Incorrect password");
     }
 
+    if (user.isBanned)
+      return NextResponse.json(
+        { error: "User is banned!", success: false },
+        { status: 500 }
+      );
+
     const tokenData = {
       id: user._id,
       username: user.username,
