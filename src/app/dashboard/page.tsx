@@ -21,16 +21,6 @@ export default function Dashboard() {
     }
   }
 
-  const logout = async () => {
-    try {
-      await axios.get("/api/users/logout");
-      toast.success("Logout successful");
-      router.push("/login");
-    } catch (error: any) {
-      console.log("Something went wrong: " + error);
-    }
-  };
-
   async function deleteUser(userID: string) {
     try {
       const response = await axios.delete("/api/users/deleteUser", {
@@ -64,7 +54,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <main className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       <h1>This is the dashboard!</h1>
       <span>Logged as: {logged === null ? "" : <b>{logged.username}</b>}</span>
       <br />
@@ -110,12 +100,6 @@ export default function Dashboard() {
           </tbody>
         </table>
       )}
-      <button
-        className="my-2 p-2 bg-blue-300 hover:bg-blue-400 active:bg-blue-500 rounded text-white "
-        onClick={logout}
-      >
-        Logout
-      </button>
-    </main>
+    </div>
   );
 }

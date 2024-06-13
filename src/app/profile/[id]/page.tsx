@@ -12,15 +12,6 @@ export default function ProfilePageId({ params }: any) {
   });
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  const logout = async () => {
-    try {
-      await axios.get("/api/users/logout");
-      toast.success("Logout successful");
-      router.push("/login");
-    } catch (error: any) {
-      console.log("Something went wrong: " + error);
-    }
-  };
   async function isAdminCheck() {
     try {
       const res = await axios.get("/api/users/profile");
@@ -34,7 +25,7 @@ export default function ProfilePageId({ params }: any) {
     isAdminCheck();
   }, []);
   return (
-    <main className="w-full h-full flex justify-center items-center flex-col">
+    <div className="w-full h-full flex justify-center items-center flex-col">
       <div className="p-4 border-2 rounded-md">
         <h1 className="text-xl">Profile</h1>
         <span>
@@ -61,13 +52,7 @@ export default function ProfilePageId({ params }: any) {
           )}
         </span>
         <br />
-        <button
-          className=" text-red-400 hover:text-red-500 focus:hover:text-red-600 hover:cursor-pointer"
-          onClick={logout}
-        >
-          Logout
-        </button>
       </div>
-    </main>
+    </div>
   );
 }

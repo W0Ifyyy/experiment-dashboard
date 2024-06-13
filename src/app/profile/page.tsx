@@ -34,7 +34,7 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <main className="w-full h-full flex justify-center items-center flex-col">
+    <div className="w-full h-full flex justify-center items-center flex-col">
       <div className="p-4 border-2 rounded-md">
         <h1 className="text-xl">Profile</h1>
         <span>
@@ -55,6 +55,6 @@ export default function ProfilePage() {
           Logout
         </button>
       </div>
-    </main>
+    </div>
   );
 }

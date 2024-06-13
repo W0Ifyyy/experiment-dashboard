@@ -53,7 +53,7 @@ export default function PostRoom() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <h1>This is post-room</h1>
       <span>
         Logged as: <b>{user.username}</b>
@@ -93,6 +93,6 @@ export default function PostRoom() {
           );
         })
       )}
-    </main>
+    </div>
   );
 }

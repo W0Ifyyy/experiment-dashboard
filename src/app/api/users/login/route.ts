@@ -32,7 +32,11 @@ export async function POST(request: NextRequest) {
     });
 
     const response = NextResponse.json(
-      { message: "Logged in succesfully", success: true },
+      {
+        message: "Logged in succesfully",
+        success: true,
+        user: { username: user.username, isAdmin: user.isAdmin },
+      },
       { status: 200 }
     );
     response.cookies.set("token", token, {

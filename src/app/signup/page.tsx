@@ -37,7 +37,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-full flex justify-center items-center">
       <div>
         <h1 className="my-6 text-3xl">
           {loading ? "Processing..." : "Sign-Up"}
@@ -80,6 +80,6 @@ export default function LoginPage() {
           </Link>
         </span>
       </div>
-    </main>
+    </div>
   );
 }

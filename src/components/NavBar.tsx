@@ -1,20 +1,20 @@
 "use client";
 import Link from "next/link";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { cookies } from "next/headers";
+import { useUser } from "@/context/UserContext";
 
 export default function NavBar() {
-  const [logged, setLogged]: any = useState(null);
+  const { user, setUser } = useUser();
   const router = useRouter();
 
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
       toast.success("Logout successful");
-      checkIfLoggedIn();
+      setUser(null);
       router.push("/login");
     } catch (error: any) {
       console.log("Something went wrong: " + error);
@@ -22,11 +22,15 @@ export default function NavBar() {
   };
 
   async function checkIfLoggedIn() {
-    let response = await axios.get("/api/users/profile");
-    setLogged(response.data.data);
     try {
+      const response = await axios.get("/api/users/profile");
+      setUser(response.data.data);
     } catch (error: any) {
-      console.error("An error occured: " + error);
+      if (error.response && error.response.status === 500) {
+        setUser(null);
+      } else {
+        console.error("An unexpected error occurred: " + error);
+      }
     }
   }
 
@@ -42,7 +46,7 @@ export default function NavBar() {
         </span>
       </div>
       <div className="flex items-center gap-4">
-        {logged === null ? (
+        {user === null ? (
           <>
             <button className="px-2 min-w-15 py-1 rounded hover:bg-slate-100 transition">
               <Link href={"/signup"}>Sign-up</Link>
@@ -53,7 +57,12 @@ export default function NavBar() {
           </>
         ) : (
           <>
-            <span>Logged in as: {logged.username}</span>
+            <span>
+              Logged in as:{" "}
+              <Link className="font-bold" href="/profile">
+                {user.username}
+              </Link>
+            </span>
             <button
               onClick={logout}
               className="px-2 py-1 bg-red-300 hover:bg-red-400 active:bg-red-500 transition rounded"

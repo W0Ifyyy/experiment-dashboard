@@ -1,10 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext";
 
 interface User {
   username: string;
@@ -13,8 +14,9 @@ interface User {
 
 export default function LoginPage() {
   const router = useRouter();
+  const { setUser } = useUser();
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<User>({
+  const [user, setUserState] = useState<User>({
     username: "",
     password: "",
   });
@@ -23,8 +25,9 @@ export default function LoginPage() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
-      console.log("Login went successfully!", response.data);
+      console.log("Login went successfully!", response.data.userData);
       toast.success("Logged in!");
+      setUser(response.data.user);
       router.push("/post-room");
     } catch (error: any) {
       setLoading(false);
@@ -42,7 +45,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-full flex justify-center items-center">
       <div>
         <h1 className="my-6 text-3xl">{loading ? "Processing..." : "Login"}</h1>
         <input
@@ -50,7 +53,7 @@ export default function LoginPage() {
           type="text"
           placeholder="Username"
           value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
+          onChange={(e) => setUserState({ ...user, username: e.target.value })}
         />
         <br />
 
@@ -59,7 +62,7 @@ export default function LoginPage() {
           type="password"
           placeholder="Password"
           value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          onChange={(e) => setUserState({ ...user, password: e.target.value })}
         />
         <br />
         <input
@@ -76,6 +79,6 @@ export default function LoginPage() {
           </Link>
         </span>
       </div>
-    </main>
+    </div>
   );
 }
