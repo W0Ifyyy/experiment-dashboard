@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
     if (!username || !email || !password) throw new Error("Data is missing!");
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, username });
     if (user) throw new Error("User already exists!");
 
     const salt = await bcrypt.genSalt(10);

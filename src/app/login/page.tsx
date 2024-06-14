@@ -45,7 +45,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <main className="w-full h-full flex flex-grow justify-center items-center">
       <div>
         <h1 className="my-6 text-3xl">{loading ? "Processing..." : "Login"}</h1>
         <input
@@ -79,6 +79,6 @@ export default function LoginPage() {
           </Link>
         </span>
       </div>
-    </div>
+    </main>
   );
 }

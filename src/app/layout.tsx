@@ -20,9 +20,7 @@ export default function RootLayout({
         <UserProvider>
           <Toaster position="top-center" />
           <NavBar />
-          <main className="flex-grow flex justify-center items-center">
-            {children}
-          </main>
+          {children}
           <Footer />
         </UserProvider>
       </body>

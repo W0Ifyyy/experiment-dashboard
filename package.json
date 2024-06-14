@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@zerobounce/zero-bounce-sdk": "^1.1.0",
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",

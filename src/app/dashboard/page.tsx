@@ -54,7 +54,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <main className="flex flex-grow flex-col justify-center items-center">
       <h1>This is the dashboard!</h1>
       <span>Logged as: {logged === null ? "" : <b>{logged.username}</b>}</span>
       <br />
@@ -100,6 +100,6 @@ export default function Dashboard() {
           </tbody>
         </table>
       )}
-    </div>
+    </main>
   );
 }

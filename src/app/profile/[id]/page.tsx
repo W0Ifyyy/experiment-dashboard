@@ -25,7 +25,7 @@ export default function ProfilePageId({ params }: any) {
     isAdminCheck();
   }, []);
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col">
+    <main className="w-full h-full flex flex-grow justify-center items-center flex-col">
       <div className="p-4 border-2 rounded-md">
         <h1 className="text-xl">Profile</h1>
         <span>
@@ -53,6 +53,6 @@ export default function ProfilePageId({ params }: any) {
         </span>
         <br />
       </div>
-    </div>
+    </main>
   );
 }
