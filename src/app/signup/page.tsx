@@ -101,7 +101,7 @@ export default function LoginPage() {
       />
       <div id="errorDiv" className="flex max-w-[75%] flex-col gap-2">
         {error.errors > 0
-          ? error.errorMsg.map((msg, i) => {
+          ? error.errorMsg.map((msg: any, i: number) => {
               return (
                 <span className="text-red-400" key={i}>
                   {msg}
