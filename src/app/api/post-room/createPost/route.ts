@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const { text } = await request.json();
     const newPost = new Post({
       username: user.username,
-      text,
+      text: text === "" ? "Empty message" : text
     });
     const savedPost = await newPost.save();
     console.log(savedPost);

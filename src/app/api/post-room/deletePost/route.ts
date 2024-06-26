@@ -15,11 +15,14 @@ export async function DELETE(request: NextRequest) {
         { error: "There is no user logged in!" },
         { status: 500 }
       );
-    if (!user.isAdmin)
-      return NextResponse.json({ error: "Unauthorized" }, { status: 500 });
     const { postID } = await request.json();
     const post = await Post.findOne({ _id: postID });
     if (!post) throw new Error("The post is not here!");
+    
+    if(post.username != user.username && !user.isAdmin) return NextResponse.json(
+      { error: "Unauthorised"},
+      { status: 500 }
+    )
     await Post.deleteOne({ _id: postID });
     return NextResponse.json({ message: "Deleted post!" }, { status: 200 });
   } catch (error: any) {

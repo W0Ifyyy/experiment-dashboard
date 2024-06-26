@@ -76,52 +76,58 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex flex-col flex-grow justify-center items-center">
-      <h1 className="my-6 text-3xl">{loading ? "Processing..." : "Sign-Up"}</h1>
-      <input
-        className="mb-4 w-1/2  border-b py-2"
-        type="text"
-        placeholder="Username"
-        value={user.username}
-        onChange={(e) => setUser({ ...user, username: e.target.value })}
-      />
-      <input
-        className="mb-4  w-1/2 border-b py-2"
-        type="text"
-        placeholder="E-mail"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
-      />
-      <input
-        className="mb-4 w-1/2  border-b py-2"
-        type="password"
-        placeholder="Password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-      />
-      <div id="errorDiv" className="flex max-w-[75%] flex-col gap-2">
-        {error.errors > 0
-          ? error.errorMsg.map((msg: any, i: number) => {
-              return (
-                <span className="text-red-400" key={i}>
-                  {msg}
-                </span>
-              );
-            })
-          : null}
+    <main className="w-full h-full flex flex-grow justify-center items-center bg-gray-50">
+      <div className="py-8 px-12 bg-white shadow-sm">
+        <h1 className="my-6 text-3xl">{loading ? "Processing..." : "Sign-Up"}</h1>
+        <input
+          className="mb-4 w-full  border-b py-2"
+          type="text"
+          placeholder="Username"
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
+        />
+        <br />
+        <input
+          className="mb-4  w-full border-b py-2"
+          type="text"
+          placeholder="E-mail"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+        />
+        <br />
+        <input
+          className="mb-4 w-full  border-b py-2"
+          type="password"
+          placeholder="Password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+        />
+        <br />
+        <div id="errorDiv" className={`${error.errors <= 0 ? "hidden" : ""} flex max-w-[75%] flex-col gap-2`}>
+          {error.errors > 0
+            ? error.errorMsg.map((msg: any, i: number) => {
+                return (
+                  <span className="text-red-400" key={i}>
+                    {msg}
+                  </span>
+                );
+              })
+            : null}
+        </div>
+        <input
+          className="w-full my-2 py-2 px-3 bg-blue-400 hover:cursor-pointer hover:bg-blue-500 active:bg-blue-600 rounded-md text-white"
+          type="submit"
+          value="Sign-in"
+          onClick={validation}
+        />
+        <br />
+        <span>
+          You want to log in?{" "}
+          <Link href="/login" className="text-blue-500">
+            Login here!
+          </Link>
+        </span>
       </div>
-      <input
-        className=" my-2 py-2 px-3 bg-blue-400 hover:cursor-pointer hover:bg-blue-500 active:bg-blue-600 rounded-md text-white"
-        type="submit"
-        value="Sign-in"
-        onClick={validation}
-      />
-      <span>
-        You want to log in?{" "}
-        <Link href="/login" className="text-blue-500">
-          Login here!
-        </Link>
-      </span>
     </main>
   );
 }

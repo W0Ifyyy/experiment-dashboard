@@ -25,34 +25,29 @@ export default function ProfilePageId({ params }: any) {
     isAdminCheck();
   }, []);
   return (
-    <main className="w-full h-full flex flex-grow justify-center items-center flex-col">
-      <div className="p-4 border-2 rounded-md">
-        <h1 className="text-xl">Profile</h1>
-        <span>
-          Username: <span className="font-semibold">{data.username}</span>
-        </span>
-        <span>
-          <br />
-          Access grade:{" "}
-          {isAdmin ? (
-            <span className="font-semibold text-blue-300">Admin</span>
-          ) : (
-            <span className="font-semibold text-blue-300">User</span>
-          )}
-          {isAdmin && (
-            <>
-              <br />
-              <Link
-                href={"/dashboard"}
-                className="text-green-200 hover:text-green-300 focus:text-green-400"
-              >
-                Go to admin dashboard!
-              </Link>
-            </>
-          )}
-        </span>
-        <br />
-      </div>
+    <main className="w-full h-full flex flex-grow justify-center items-center flex-col bg-gray-50">
+     <div className="p-8 flex flex-col gap-2 shadow-sm rounded-md bg-white">
+  <h1 className="text-xl font-bold">Profile</h1>
+  <div className="flex items-center gap-3 mt-3">
+    <div className="w-12 h-12 bg-black rounded-full hover:shadow-lg transition-shadow"></div>
+    <span className="font-semibold text-lg">{data.username}</span>
+  </div>
+  <span className="mt-2">
+    Access grade:{" "}
+    <span className="font-semibold text-blue-500">
+      {isAdmin ? "Admin" : "User"}
+    </span>
+  </span>
+  {isAdmin && (
+    <Link
+      href="/dashboard"
+      className="mt-3 py-2 px-4 border border-green-300 rounded-md text-green-600 hover:text-green-700 focus:text-green-800 hover:bg-green-200 focus:bg-green-300 transition-all"
+    >
+      Admin Dashboard
+    </Link>
+  )}
+</div>
+
     </main>
   );
 }

@@ -45,8 +45,8 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="w-full h-full flex flex-grow justify-center items-center">
-      <div>
+    <main className="w-full h-full flex flex-grow justify-center items-center bg-gray-50">
+      <div className="px-12 py-8 bg-white shadow-sm rounded">
         <h1 className="my-6 text-3xl">{loading ? "Processing..." : "Login"}</h1>
         <input
           className="mb-4 w-full border-b py-2"
@@ -56,7 +56,6 @@ export default function LoginPage() {
           onChange={(e) => setUserState({ ...user, username: e.target.value })}
         />
         <br />
-
         <input
           className="mb-4 w-full border-b py-2"
           type="password"
