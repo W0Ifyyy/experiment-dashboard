@@ -11,7 +11,7 @@ export default function NavBar() {
   const router = useRouter();
 
   const [showPopup, setShowPopup] = useState(false);
-  const popupRef = useRef(null);
+  const popupRef = useRef<HTMLDivElement>(null);
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
