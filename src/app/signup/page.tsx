@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import {
@@ -9,6 +8,7 @@ import {
   isValidUsername,
   isValidEmailFormat,
 } from "@/helpers/validation";
+import axiosInstance from "@/helpers/axiosInstance";
 
 interface User {
   username: string;
@@ -63,7 +63,7 @@ export default function LoginPage() {
     } else {
       try {
         setLoading(true);
-        const response = await axios.post("/api/users/signup", user);
+        const response = await axiosInstance.post("/api/users/signup", user);
         console.log("Signup success!", response.data);
         toast.success("User created successfully!");
         router.push("/login");

@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axiosInstance from "@/helpers/axiosInstance";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   async function getUsers() {
     try {
-      const res = await axios.get("/api/dashboard/displayUsers");
+      const res = await axiosInstance.get("/api/dashboard/displayUsers");
       setUsers(res.data.data);
       setLogged(res.data.user);
     } catch (error: any) {
@@ -23,7 +23,7 @@ export default function Dashboard() {
 
   async function deleteUser(userID: string) {
     try {
-      const response = await axios.delete("/api/users/deleteUser", {
+      const response = await axiosInstance.delete("/api/users/deleteUser", {
         data: { userID },
       });
       console.log("User deleted: ", response.data);
@@ -37,7 +37,7 @@ export default function Dashboard() {
 
   async function banUser(userID: string) {
     try {
-      const response = await axios.delete("/api/users/banUser", {
+      const response = await axiosInstance.delete("/api/users/banUser", {
         data: { userID },
       });
       console.log("User banned: ", response.data);

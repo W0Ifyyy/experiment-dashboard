@@ -1,9 +1,10 @@
 "use client";
-import axios from "axios";
+
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import axiosInstance from "@/helpers/axiosInstance";
 
 export default function ProfilePageId({ params }: any) {
   const [data, setData]: any = useState({
@@ -14,7 +15,7 @@ export default function ProfilePageId({ params }: any) {
   const router = useRouter();
   async function isAdminCheck() {
     try {
-      const res = await axios.get("/api/users/profile");
+      const res = await axiosInstance.get("/api/users/profile");
       setIsAdmin(res.data.data.isAdmin);
     } catch (error: any) {
       console.log("Something went wrong! :" + error);

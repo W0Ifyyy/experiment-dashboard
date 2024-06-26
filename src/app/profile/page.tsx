@@ -1,9 +1,10 @@
 "use client";
-import axios from "axios";
+
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import axiosInstance from "@/helpers/axiosInstance";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -11,7 +12,7 @@ export default function ProfilePage() {
 
   const logout = async () => {
     try {
-      await axios.get("/api/users/logout");
+      await axiosInstance.get("/api/users/logout");
       toast.success("Logout successful");
       router.push("/login");
     } catch (error: any) {
@@ -21,7 +22,7 @@ export default function ProfilePage() {
 
   async function getUserDetails() {
     try {
-      const res = await axios.get("/api/users/profile");
+      const res = await axiosInstance.get("/api/users/profile");
       setData({ id: res.data.data._id, username: res.data.data.username });
       router.push(`/profile/${res.data.data._id}-${res.data.data.username}`);
     } catch (error: any) {
