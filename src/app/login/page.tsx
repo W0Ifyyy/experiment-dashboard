@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useUser } from "@/context/UserContext";
+import axiosInstance from "@/helpers/axiosInstance";
 
 interface User {
   username: string;
@@ -24,7 +24,7 @@ export default function LoginPage() {
   async function onLogin() {
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/login", user);
+      const response = await axiosInstance.post("/api/users/login", user);
       console.log("Login went successfully!", response.data.userData);
       toast.success("Logged in!");
       setUser(response.data.user);

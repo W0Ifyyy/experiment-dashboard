@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios"; 
+import axiosInstance from "@/helpers/axiosInstance";
 import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 
@@ -13,7 +13,7 @@ export default function PostRoom() {
   // Function to get posts with pagination
   async function getPosts(page: number) {
     try {
-      const response = await axios.get(`/api/post-room/getPosts?page=${page}&limit=10`); 
+      const response = await axiosInstance.get(`/api/post-room/getPosts?page=${page}&limit=10`); 
       setUser(response.data.user); 
       setPosts(response.data.posts); 
       setTotalPages(response.data.totalPages);
@@ -26,7 +26,7 @@ export default function PostRoom() {
   // Function to create a new post
   async function createPost() {
     try {
-      const response = await axios.post("/api/post-room/createPost", { text }); 
+      const response = await axiosInstance.post("/api/post-room/createPost", { text }); 
       console.log("Post created!", response.data); 
       toast.success("Post created!"); 
       setText("");
@@ -40,7 +40,7 @@ export default function PostRoom() {
   // Function to delete a post
   async function deletePost(postID: string) {
     try {
-      const response = await axios.delete("/api/post-room/deletePost", {
+      const response = await axiosInstance.delete("/api/post-room/deletePost", {
         data: { postID }, 
       });
       console.log("Post deleted: ", response.data); 
