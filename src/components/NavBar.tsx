@@ -34,22 +34,22 @@ export default function NavBar() {
     }
   };
 
-  async function checkIfLoggedIn() {
-    try {
-      const response = await axios.get("/api/users/profile");
-      setUser(response.data.data);
-    } catch (error: any) {
-      if (error.response && error.response.status === 500) {
-        setUser(null);
-      } else {
-        console.error("An unexpected error occurred: " + error);
+  useEffect(() => {
+    async function checkIfLoggedIn() {
+      try {
+        const response = await axios.get("/api/users/profile");
+        setUser(response.data.data);
+      } catch (error: any) {
+        if (error.response && error.response.status === 500) {
+          setUser(null);
+        } else {
+          console.error("An unexpected error occurred: " + error);
+        }
       }
     }
-  }
 
-  useEffect(() => {
     checkIfLoggedIn();
-  }, []);
+  }, [setUser]);
 
   useEffect(() => {
     if (showPopup) {

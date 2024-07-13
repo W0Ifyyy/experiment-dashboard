@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getDataFromToken } from "@/helpers/extractDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/User";

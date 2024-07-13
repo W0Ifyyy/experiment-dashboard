@@ -9,17 +9,6 @@ export default function Dashboard() {
   const [users, setUsers] = useState<any[]>([]);
   const [logged, setLogged]: any = useState(null);
 
-  async function getUsers() {
-    try {
-      const res = await axiosInstance.get("/api/dashboard/displayUsers");
-      setUsers(res.data.data);
-      setLogged(res.data.user);
-    } catch (error: any) {
-      console.error("Something went wrong: " + error);
-      toast.error("Unauthorized");
-      router.push("/profile");
-    }
-  }
 
   async function deleteUser(userID: string) {
     try {
@@ -32,6 +21,18 @@ export default function Dashboard() {
     } catch (error: any) {
       toast.error("An error occured: " + error);
       console.error("An error occured: " + error);
+    }
+  }
+
+  async function getUsers() {
+    try {
+      const res = await axiosInstance.get("/api/dashboard/displayUsers");
+      setUsers(res.data.data);
+      setLogged(res.data.user);
+    } catch (error: any) {
+      console.error("Something went wrong: " + error);
+      toast.error("Unauthorized");
+      router.push("/profile");
     }
   }
 
@@ -50,8 +51,19 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    async function getUsers() {
+      try {
+        const res = await axiosInstance.get("/api/dashboard/displayUsers");
+        setUsers(res.data.data);
+        setLogged(res.data.user);
+      } catch (error: any) {
+        console.error("Something went wrong: " + error);
+        toast.error("Unauthorized");
+        router.push("/profile");
+      }
+    }
+    getUsers()
+  });
 
   return (
     <main className="flex flex-grow flex-col justify-center items-center">

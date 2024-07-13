@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextRequest, NextResponse } from "next/server";
 import { getDataFromToken } from "@/helpers/extractDataFromToken";
 import User from "@/models/User";
@@ -8,11 +10,15 @@ connect();
 export async function GET(request: NextRequest) {
   try {
     const userId = await getDataFromToken(request);
+    if (!userId) throw new Error("Invalid token or no token provided");
+
     const user = await User.findOne({ _id: userId }).select(
       "-password -isVerified"
     );
-    if (!user.isAdmin) throw new Error("The user is not an Admin!");
+    if (!user?.isAdmin) throw new Error("The user is not an Admin!");
+
     const users = await User.find({}).select("-password -isVerified");
+
     return NextResponse.json({
       message: "Users extracted!",
       data: users,

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { connect } from "@/dbConfig/dbConfig"; 
 import Post from "@/models/Post"; 
 import { NextRequest, NextResponse } from "next/server";

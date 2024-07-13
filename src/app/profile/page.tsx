@@ -20,19 +20,19 @@ export default function ProfilePage() {
     }
   };
 
-  async function getUserDetails() {
-    try {
-      const res = await axiosInstance.get("/api/users/profile");
-      setData({ id: res.data.data._id, username: res.data.data.username });
-      router.push(`/profile/${res.data.data._id}-${res.data.data.username}`);
-    } catch (error: any) {
-      console.log("Something went wrong! :" + error);
-    }
-  }
 
   useEffect(() => {
+    async function getUserDetails() {
+      try {
+        const res = await axiosInstance.get("/api/users/profile");
+        setData({ id: res.data.data._id, username: res.data.data.username });
+        router.push(`/profile/${res.data.data._id}-${res.data.data.username}`);
+      } catch (error: any) {
+        console.log("Something went wrong! :" + error);
+      }
+    }
     getUserDetails();
-  }, []);
+  });
 
   return (
     <main className="w-full h-full flex flex-grow justify-center items-center flex-col bg-gray-50">
